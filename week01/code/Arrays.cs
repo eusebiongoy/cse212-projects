@@ -13,7 +13,23 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // Plan:
+        // 1. Create a new double array with the requested length.
+        // 2. Use a loop to go through each position in the array, starting at index 0.
+        // 3. For each position, calculate the multiple of the given number by multiplying
+        //    the number by the index plus 1.
+        // 4. Store the calculated multiple in the current position of the array.
+        // 5. Continue the loop until all positions in the array have been filled.
+        // 6. Return the completed array.
+
+        double[] multiples = new double[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            multiples[i] = number * (i + 1);
+        }
+
+        return multiples;
     }
 
     /// <summary>
@@ -29,5 +45,25 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // Plan:
+        // 1. Calculate the index where the portion that needs to move to the
+        //    beginning of the list starts by subtracting amount from data.Count.
+        // 2. Use GetRange to copy the last amount of items into a separate list.
+        // 3. Use GetRange to copy the items from the beginning of the original
+        //    list up to the starting index into another list.
+        // 4. Clear the original data list so that the same list is modified.
+        // 5. Add the items from the end portion to the original list first.
+        // 6. Add the beginning portion after the end portion.
+        // 7. The original list is now rotated to the right by the requested amount.
+
+        int startIndex = data.Count - amount;
+
+        List<int> endPart = data.GetRange(startIndex, amount);
+        List<int> beginningPart = data.GetRange(0, startIndex);
+
+        data.Clear();
+        data.AddRange(endPart);
+        data.AddRange(beginningPart);
     }
 }
