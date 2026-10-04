@@ -1,45 +1,68 @@
 public class Node
 {
-    public int Data { get; set; }
-    public Node? Right { get; private set; }
-    public Node? Left { get; private set; }
+public int Data { get; set; }
+public Node? Right { get; private set; }
+public Node? Left { get; private set; }
 
-    public Node(int data)
+public Node(int data)
+{
+    this.Data = data;
+}
+
+public void Insert(int value)
+{
+    // Only insert unique values
+    if (value == Data)
     {
-        this.Data = data;
+        return;
     }
 
-    public void Insert(int value)
+    if (value < Data)
     {
-        // TODO Start Problem 1
-
-        if (value < Data)
-        {
-            // Insert to the left
-            if (Left is null)
-                Left = new Node(value);
-            else
-                Left.Insert(value);
-        }
+        // Insert to the left
+        if (Left is null)
+            Left = new Node(value);
         else
-        {
-            // Insert to the right
-            if (Right is null)
-                Right = new Node(value);
-            else
-                Right.Insert(value);
-        }
+            Left.Insert(value);
+    }
+    else
+    {
+        // Insert to the right
+        if (Right is null)
+            Right = new Node(value);
+        else
+            Right.Insert(value);
+    }
+}
+
+public bool Contains(int value)
+{
+    if (value == Data)
+    {
+        return true;
     }
 
-    public bool Contains(int value)
+    if (value < Data)
     {
-        // TODO Start Problem 2
+        if (Left is null)
+            return false;
+
+        return Left.Contains(value);
+    }
+
+    if (Right is null)
         return false;
-    }
 
-    public int GetHeight()
-    {
-        // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
-    }
+    return Right.Contains(value);
+}
+
+public int GetHeight()
+{
+    int leftHeight = Left is null ? 0 : Left.GetHeight();
+    int rightHeight = Right is null ? 0 : Right.GetHeight();
+
+    return 1 + Math.Max(leftHeight, rightHeight);
+}
+
+
 }
